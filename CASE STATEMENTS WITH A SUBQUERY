@@ -54,7 +54,7 @@ AND o.email NOT ILIKE '%@company.com%'
 AND o.email NOT ILIKE '%@last_name.io%'
 AND o.email NOT ILIKE '%name@email.com%'
 
-###I group the sales by region ('country_sales), and label the subquery 'item_sales'
+###I group the sales by region ('country_sales'), and label the subquery 'item_sales'
 GROUP BY country_sales) item_sales
 
 ###By using this final constraint on the outside of our subquery, I remove the sales of items that were shipped 
