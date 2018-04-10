@@ -24,12 +24,12 @@ SELECT
   END as country_sales,
 sum(li.quantity) as values
 
-###Here I JOINED the necessary tables and gave them the alias' of o, li, and sa 
+###Here I JOINED the necessary tables and gave them the alias of o, li, and sa 
 FROM datasources_shopifyorder o 
 JOIN datasources_shopifylineitem li ON li.order_id = o.shopifymodel_ptr_id
 JOIN datasources_shopifyshippingaddress sa ON sa.order_id = o.shopifymodel_ptr_id
 
-###Then first constraint of the items we are querying
+###The first constraint of the items we are querying
 WHERE
 (
 li.sku ILIKE '%sku_a%' OR
