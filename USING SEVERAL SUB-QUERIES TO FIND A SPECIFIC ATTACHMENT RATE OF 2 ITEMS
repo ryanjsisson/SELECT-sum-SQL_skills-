@@ -1,0 +1,1 @@
+SELECT num_orders.dates, abandoned_cart_count.values::float / (abandoned_cart_count.values + num_orders.values) AS values
