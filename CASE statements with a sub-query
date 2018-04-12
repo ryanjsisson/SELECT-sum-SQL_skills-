@@ -42,7 +42,7 @@ li.sku ILIKE '%sku_g%' OR
 li.sku ILIKE '%sku_h%' OR
 li.sku ILIKE '%sku_i%' OR
 li.sku ILIKE '%sku_j%' OR
-li.sku ILIKE '%sku_k%' OR
+li.sku ILIKE '%sku_k%'
 )
 
 ###Further constraints of time frame (yesterday), source ids to make the query run faster, and removing any "TEST" sales from the company
