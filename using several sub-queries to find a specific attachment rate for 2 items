@@ -1,1 +1,27 @@
-SELECT num_orders.dates, abandoned_cart_count.values::float / (abandoned_cart_count.values + num_orders.values) AS values
+SELECT (socks_sales.values::float / shoes_sales.values::float)::decimal(5,4) 
+FROM
+
+(
+SELECT sum(customers_who_bought_socks.values) AS values
+FROM
+
+(
+SELECT o.email as id, sum(li.quantity) as values
+FROM datasources_shopifyorder o
+JOIN datasources_shopifylineitem li ON o.shopifymodel_ptr_id = li.order_id
+WHERE li.sku ILIKE '%sku_socks%'
+AND o.created_at >= timestamp '2099-01-01' at time zone 'America/Los_Angeles' at time zone 'UTC'
+GROUP BY o.email) customers_who_bought_socks
+JOIN
+(
+SELECT o.email as id
+FROM datasources_shopifyorder o
+JOIN datasources_shopifylineitem li ON o.shopifymodel_ptr_id = li.order_id
+WHERE li.sku ILIKE '%sku_shoes%’) customers_who_bought_shoes
+ON customers_who_bought_socks.id = customers_who_bought_shoes.id ) socks_sales,
+
+(
+SELECT count(o.email) as values
+FROM datasources_shopifyorder o
+JOIN datasources_shopifylineitem li ON o.shopifymodel_ptr_id=li.order_id
+WHERE li.sku ILIKE '%sku_shoes%’) shoes_sales;
