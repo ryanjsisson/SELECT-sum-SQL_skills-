@@ -1,8 +1,10 @@
-#This is a query I wrote to find the attachment rate of a certain item (socks in this instance) 
-#to the all-time sale of another item (shoes in this instance). However, we only wanted to count the socks 
-#if the customer had bought shoes from the company. We used email as an indicator of a customer, to find 
-#the customers who were buying socks and shoes, and what the percent was of socks sold to these customers 
-#versus all time shoe sales. This was after debuting the socks; the idea was to see the percent go up daily.
+/* 
+This is a query I wrote to find the attachment rate of a certain item (socks in this instance) 
+to the all-time sale of another item (shoes in this instance). However, we only wanted to count the socks 
+if the customer had bought shoes from the company. We used email as an indicator of a customer, to find 
+the customers who were buying socks and shoes, and what the percent was of socks sold to these customers 
+versus all-time shoe sales. This report was created after debuting the socks; the idea was to see the percent go up daily
+*/
 
 SELECT (socks_sales.values::float / shoes_sales.values::float)::decimal(5,4) 
 FROM
