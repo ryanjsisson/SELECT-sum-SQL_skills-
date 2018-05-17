@@ -1,12 +1,14 @@
 /* For one of our clients, we wanted to count a sale iff the specific item's shipping address matched the customer's shipping address
 
 Here, I simply selected to sum the 'values' column from the subquery 'item_sales' */
+
 SELECT SUM(item_sales.values)
 FROM
 
 /* I wrote a case statement breaking down the shipping address (sa) country and the specific items' skus that match that country, grouping
 them into regions.  Running sales through this case statement will label any item shipped to the wrong country as 'does_not_count'
 I labeled this 'country_sales', and then summed the quantity of line-items shipped to each country */
+
 (
 SELECT 
   CASE
@@ -24,12 +26,10 @@ SELECT
   END as country_sales,
 sum(li.quantity) as values
 
-/* Here I JOINED the necessary tables and gave them the alias of o, li, and sa */
 FROM datasources_shopifyorder o 
 JOIN datasources_shopifylineitem li ON li.order_id = o.shopifymodel_ptr_id
 JOIN datasources_shopifyshippingaddress sa ON sa.order_id = o.shopifymodel_ptr_id
 
-/* The first constraint of the items we are querying */
 WHERE
 (
 li.sku ILIKE '%sku_a%' OR
@@ -46,6 +46,7 @@ li.sku ILIKE '%sku_k%'
 )
 
 /* Further constraints of time frame (yesterday), source ids to make the query run faster, and removing any "TEST" sales from the company */
+
 AND created_at >=  date_trunc('day', now() at time zone 'America/Los_Angeles' - interval '1 day') at time zone 'America/Los_Angeles' at time zone 'UTC'
 AND created_at <  date_trunc('day', now() at time zone 'America/Los_Angeles') at time zone 'America/Los_Angeles' at time zone 'UTC'
 AND o.source_id = 1
@@ -55,8 +56,10 @@ AND o.email NOT ILIKE '%@last_name.io%'
 AND o.email NOT ILIKE '%name@email.com%'
 
 /* I group the sales by region ('country_sales'), and label the subquery 'item_sales' */
+
 GROUP BY country_sales) item_sales
 
 /* By using this final constraint on the outside of our subquery, I remove the sales of items that were shipped 
 to incorrect countries by setting the regions equal to everything BUT the 'does_not_count' values.  BOOM! */
+
 WHERE item_sales.country_sales != 'does_not_count'
