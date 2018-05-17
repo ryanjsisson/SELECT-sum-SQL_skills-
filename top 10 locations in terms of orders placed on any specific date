@@ -1,7 +1,8 @@
 /* This is a simple query to find the top 10 locations (cities) in terms of orders placed on any specific date */
 
 /* selecting the shipping address city as the location of the sale, and counting how many shopify customers placed an order from that city.
-This is one way to quantify orders placed, but does not take into value the amount of the purchase */
+This is one way to quantify orders placed, but does not take into account the amount of the purchase */
+
 SELECT sa.city, count(o.shopifymodel_ptr_id) as values
 
 FROM datasources_shopifyshippingaddress sa
