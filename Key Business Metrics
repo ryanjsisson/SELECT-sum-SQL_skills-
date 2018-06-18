@@ -32,3 +32,20 @@ join post_create on post_create.id = p._id
 join post_complete on post_complete.id = p._id
 group by p.project_type_display_name
 order by average_time_hours DESC
+----
+with post_complete as (
+  SELECT count(_id) as values, creator_id
+  FROM twmongodb.projects p
+  WHERE p.is_posted = true AND p.status_cd >= 3 AND p.status_cd < 8
+  group by creator_id)
+
+select case when (post_complete.values <= 5) then 'a:  5 or less'
+  when (post_complete.values > 5)  and (post_complete.values <= 10) then 'b:  5 - 10'
+  when (post_complete.values > 10) and (post_complete.values <= 25) then 'c:  10 - 25'
+  when (post_complete.values > 25) and (post_complete.values <= 50) then 'd:  25 - 50'
+  when (post_complete.values > 50) and (post_complete.values <= 100) then 'e:  50 - 100'
+else 'f:  greater than 100'
+end as how_many, count(creator_id)
+from post_complete
+group by post_complete.values
+order by how_many
