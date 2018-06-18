@@ -1,6 +1,6 @@
 # SELECT-sum-SQL_skills-
 SELECT sum(SQL_skills) as What_Ive_Learned
 
-Here are a few queries I wrote for analysis of Shopify transactional data.  I also included some code I edited (to remove any confidential data) to answer specific Business Intelligence and Marketing ad-hoc reports requested by our clients. 
+Here are some examples of SQL queries I've written for various companies I've worked with.
 
-I also included SQL queries I have written for various projects I have worked on.
+The queries include analysis of Shopify transactional data, answering specific Business Intelligence and Marketing ad-hoc requests, and several SQL queries I wrote for a project I worked on with a noSQL MongoDB
