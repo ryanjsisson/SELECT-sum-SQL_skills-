@@ -49,3 +49,10 @@ end as how_many, count(creator_id)
 from post_complete
 group by post_complete.values
 order by how_many
+---
+SELECT [created_at:week] AS week_created, COUNT(distinct _id) as new_users
+FROM twmongodb.identities
+WHERE _type = 'User'
+AND account_verified = 'true'
+group by 1
+order by week_created
