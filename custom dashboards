@@ -1,4 +1,5 @@
-/* this is a custom dashboard I created to mimic a previously created dashboard.  I worked with mongoDB and Periscope Data to write SQL commands. It is edited to remove any confidential data adherring to the company */
+/* this is a custom dashboard I created to mimic a previously created dashboard.  
+I worked with mongoDB and Periscope Data to write SQL commands. It is edited to remove any confidential data adherring to the company */
 
 with payment as 
 (SELECT _id as id, job_cost as Client_Pays, payment_amount_for_job as Vendor_Receives_Amount
