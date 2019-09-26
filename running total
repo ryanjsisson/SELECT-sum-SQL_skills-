@@ -1,6 +1,0 @@
-select date,
-       count(user_id) as count,
-       sum(count(user_id)) over (order by date) as running_total
-from mongodb.users
-group by date
-order by date;
